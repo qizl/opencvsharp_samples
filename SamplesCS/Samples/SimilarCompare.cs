@@ -1,4 +1,5 @@
 ﻿using OpenCvSharp;
+using OpenCvSharp.XFeatures2D;
 using SampleBase;
 using System;
 
@@ -12,16 +13,15 @@ namespace SamplesCS
     {
         public void Run()
         {
-            var lenna = new Mat(FilePath.Image.Zhangly);
-            var lenna511 = new Mat(FilePath.Image.Zhangly1);
-            var s = Similar(ref lenna, ref lenna511);
-            Console.WriteLine($"相似度：{s}");
+            //using var src1 = new Mat(FilePath.Image.Zhangly, ImreadModes.Color);
+            //using var src2 = new Mat(FilePath.Image.Zhangly3, ImreadModes.Color);
 
-            // Load the pictures
+            //MatchBySift(src1, src2);
+
             var haarCascade = new CascadeClassifier(FilePath.Text.HaarCascade);
-
-            var lennaResult = this.DetectFace(lenna, haarCascade);
-            var lenna511Result = this.DetectFace(lenna511, haarCascade);
+            
+            var lennaResult = this.DetectFace(FilePath.Image.Zhangly, haarCascade);
+            var lenna511Result = this.DetectFace(FilePath.Image.Zhangly1, haarCascade);
 
             Cv2.ImShow(FilePath.Image.Lenna, lennaResult);
             Cv2.ImShow(FilePath.Image.Lenna511, lenna511Result);
@@ -29,32 +29,11 @@ namespace SamplesCS
             Cv2.WaitKey(0);
             Cv2.DestroyAllWindows();
         }
-        private float Similar(ref Mat src, ref Mat src2)
-        {
-            Mat gray1 = new Mat(src.Size(), src.Type()),
-                gray2 = new Mat(src2.Size(), src2.Type());
-            Cv2.CvtColor(src, gray1, ColorConversionCodes.BGR2GRAY);
-            Cv2.CvtColor(src2, gray2, ColorConversionCodes.BGR2GRAY);
 
-            var size = new Size(512, 512);
-            using (var scaledImg1 = gray1.Resize(size))
-            using (var scaledImg2 = gray2.Resize(size))
-            {
-                Cv2.Threshold(scaledImg1, scaledImg1, 128, 255, ThresholdTypes.BinaryInv);
-                Cv2.Threshold(scaledImg2, scaledImg2, 128, 255, ThresholdTypes.BinaryInv);
-                Mat res = new Mat(size, scaledImg1.Type());
-                Cv2.Absdiff(scaledImg1, scaledImg2, res);
-                //Cv2.ImShow("aa", scaledImg1);
-                var all = (float)scaledImg1.Sum();
-                var result = (float)res.Sum();
-                return (1 - result / all);
-            }
-        }
-
-        private Mat DetectFace(Mat src, CascadeClassifier cascade)
+        private Mat DetectFace(string fileName, CascadeClassifier cascade)
         {
             Mat result;
-
+            using (var src = new Mat(fileName))
             using (var gray = new Mat())
             {
                 result = src.Clone();
@@ -81,5 +60,7 @@ namespace SamplesCS
             }
             return result;
         }
+
+        
     }
 }
