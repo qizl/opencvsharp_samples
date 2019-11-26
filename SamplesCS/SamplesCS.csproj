@@ -124,6 +124,7 @@
     <Compile Include="Samples\BgSubtractorMOG.cs" />
     <Compile Include="Samples\BinarizerSample.cs" />
     <Compile Include="Samples\CaffeSample.cs" />
+    <Compile Include="Samples\SimilarCompare.cs" />
     <Compile Include="Samples\FaceDetectionDNN.cs" />
     <Compile Include="Samples\HandPose.cs" />
     <Compile Include="Samples\PhotoMethods.cs" />

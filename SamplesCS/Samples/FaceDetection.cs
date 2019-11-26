@@ -41,8 +41,7 @@ namespace SamplesCS
                 Cv2.CvtColor(src, gray, ColorConversionCodes.BGR2GRAY);
 
                 // Detect faces
-                Rect[] faces = cascade.DetectMultiScale(
-                    gray, 1.08, 2, HaarDetectionType.ScaleImage, new Size(30, 30));
+                Rect[] faces = cascade.DetectMultiScale(gray, 1.08, 2, HaarDetectionType.ScaleImage, new Size(30, 30));
 
                 // Render all detected faces
                 foreach (Rect face in faces)

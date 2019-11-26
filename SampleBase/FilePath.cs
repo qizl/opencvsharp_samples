@@ -7,6 +7,10 @@
     {
         public static class Image
         {
+            public const string Zhangly = "Data/Image/zly.jpg";
+            public const string Zhangly1 = "Data/Image/zly1.jpg";
+            public const string Zhangly2 = "Data/Image/zly2.jpg";
+            public const string Zhangly3 = "Data/Image/zly3.jpg";
             public const string Lenna = "Data/Image/lenna.png";
             public const string Lenna511 = "Data/Image/lenna511.png";
             public const string Girl = "Data/Image/Girl.bmp";
